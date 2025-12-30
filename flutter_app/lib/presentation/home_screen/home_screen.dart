@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../routes/app_routes.dart';
 import '../../theme/app_theme.dart';
-import '../../widgets/section_header.dart';
+import '../../widgets/app_card.dart';
+import '../../widgets/feature_tile.dart';
 import '../../widgets/quick_action_card.dart';
 import '../../widgets/ride_option_tile.dart';
+import '../../widgets/section_header.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -34,12 +37,7 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              padding: EdgeInsets.all(4.w),
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface,
-                borderRadius: BorderRadius.circular(24),
-              ),
+            AppCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -105,7 +103,7 @@ class HomeScreen extends StatelessWidget {
                     subtitle: 'Fast pickup in minutes',
                     icon: Icons.flash_on_outlined,
                     accent: AppTheme.electricGreen,
-                    onTap: () {},
+                    onTap: () => Navigator.pushNamed(context, AppRoutes.trips),
                   ),
                 ),
                 SizedBox(width: 4.w),
@@ -115,7 +113,7 @@ class HomeScreen extends StatelessWidget {
                     subtitle: 'Plan rides up to 30 days',
                     icon: Icons.event_available_outlined,
                     accent: AppTheme.ink,
-                    onTap: () {},
+                    onTap: () => Navigator.pushNamed(context, AppRoutes.trips),
                   ),
                 ),
               ],
@@ -143,12 +141,7 @@ class HomeScreen extends StatelessWidget {
               price: '\$22 - \$27',
             ),
             SizedBox(height: 3.h),
-            Container(
-              padding: EdgeInsets.all(4.w),
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface,
-                borderRadius: BorderRadius.circular(24),
-              ),
+            AppCard(
               child: Row(
                 children: [
                   const CircleAvatar(
@@ -181,6 +174,43 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
+            SizedBox(height: 3.h),
+            const SectionHeader(title: 'More for you'),
+            SizedBox(height: 1.6.h),
+            FeatureTile(
+              title: 'Activity',
+              subtitle: 'Trip history and ride insights',
+              icon: Icons.timeline_outlined,
+              onTap: () => Navigator.pushNamed(context, AppRoutes.activity),
+            ),
+            SizedBox(height: 1.6.h),
+            FeatureTile(
+              title: 'Messages',
+              subtitle: 'Stay in touch with drivers',
+              icon: Icons.chat_bubble_outline,
+              onTap: () => Navigator.pushNamed(context, AppRoutes.messages),
+            ),
+            SizedBox(height: 1.6.h),
+            FeatureTile(
+              title: 'Wallet',
+              subtitle: 'Payment methods and ride passes',
+              icon: Icons.account_balance_wallet_outlined,
+              onTap: () => Navigator.pushNamed(context, AppRoutes.wallet),
+            ),
+            SizedBox(height: 1.6.h),
+            FeatureTile(
+              title: 'Promotions',
+              subtitle: 'Save on upcoming rides',
+              icon: Icons.local_offer_outlined,
+              onTap: () => Navigator.pushNamed(context, AppRoutes.promotions),
+            ),
+            SizedBox(height: 1.6.h),
+            FeatureTile(
+              title: 'Settings',
+              subtitle: 'Privacy, notifications, and more',
+              icon: Icons.settings_outlined,
+              onTap: () => Navigator.pushNamed(context, AppRoutes.settings),
+            ),
           ],
         ),
       ),
@@ -188,6 +218,13 @@ class HomeScreen extends StatelessWidget {
         currentIndex: 0,
         selectedItemColor: AppTheme.ink,
         unselectedItemColor: AppTheme.slate,
+        onTap: (index) {
+          if (index == 1) {
+            Navigator.pushNamed(context, AppRoutes.trips);
+          } else if (index == 2) {
+            Navigator.pushNamed(context, AppRoutes.account);
+          }
+        },
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined),
